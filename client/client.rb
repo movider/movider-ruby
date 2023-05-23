@@ -9,7 +9,7 @@ class Client
   def initialize(api_key, api_secret)
     @api_key = api_key
     @api_secret = api_secret
-    @endpoint = "https://mvd-sms-api.ngrok.1mobyline.com/v1"
+    @endpoint = "https://api.movider.co/v1"
     @content_type_json = "application/json"
     @content_type_form_urlencoded = "application/x-www-form-urlencoded"
   end
@@ -32,25 +32,25 @@ class Client
   end
 
   def get(url)
-  uri = URI.parse(url + "?api_key=#{self.api_key}&api_secret=#{self.api_secret}")
-  response = Net::HTTP.get_response(uri)
-  {
-    code: response.code,
-    content: response.body
-  }
-end
-
-def delete(url)
-  uri = URI.parse(url + "?api_key=#{self.api_key}&api_secret=#{self.api_secret}")
-  request = Net::HTTP::Delete.new(uri)
-  response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-    http.request(request)
+    uri = URI.parse(url + "?api_key=#{self.api_key}&api_secret=#{self.api_secret}")
+    response = Net::HTTP.get_response(uri)
+    {
+      code: response.code,
+      content: response.body
+    }
   end
-  {
-    code: response.code,
-    content: response.body
-  }
-end
+
+  def delete(url)
+    uri = URI.parse(url + "?api_key=#{self.api_key}&api_secret=#{self.api_secret}")
+    request = Net::HTTP::Delete.new(uri)
+    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+      http.request(request)
+    end
+    {
+      code: response.code,
+      content: response.body
+    }
+  end
 end
 
 class Params

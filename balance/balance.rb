@@ -29,9 +29,6 @@ class Balance
     else
         return "Error: Unknown error"
     end
-    else
-      return "Unknown result type"
-    end
   end
 
   def self.get(client)
